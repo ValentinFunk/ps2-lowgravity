@@ -34,3 +34,16 @@ end
 function ITEM.static.GetPointshopIconDimensions( )
 	return Pointshop2.GenerateIconSize( 4, 4 )
 end
+
+-- Tell the shop which persistence class to use to generate item classes for this base
+function ITEM.static.getPersistence( )
+	return Pointshop2.LowGravityPersistence
+end
+
+function ITEM.static.generateFromPersistence( itemTable, persistence )
+    -- Call the parent's generateFromPersistence to populate default fields such as name, price, description.
+    ITEM.super.generateFromPersistence( itemTable, persistence.ItemPersistence )
+
+    -- Set the class properties from the persistence
+    itemTable.multiplier = persistence.multiplier
+end
